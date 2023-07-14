@@ -1,0 +1,15 @@
+{
+  "firstName": "Elina",
+  "lastName": "lastName",
+  "email": "345@i.ua",
+  "phoneNumber": "123456789",
+  "fax": "123456789",
+  "company": "companyName",
+  "address": "Street 123",
+  "city": "Amsterdam",
+  "region": "Newport",
+  "zipCode": "1234",
+  "country": "United Kingdom",
+  "loginName": "myloginName345",
+  "password": "mypassword345"
+}
