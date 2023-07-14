@@ -22,10 +22,13 @@ it('Place order HW', () => {
   cy.log('**Check that the found element has correct name')
   cy.get('.productname span').should('have.text', 'Body Cream by Bulgari')
 
+  cy.log('**Check product total price when quantity changes...**')
   checkTotalPrice();
 
+  cy.log('**Open the cart...**')
   cy.get('.productpagecart a').click();
 
+  cy.log('**Check product cart total price including shipping price...**')
   checkTotalCartPrice();
 
  
