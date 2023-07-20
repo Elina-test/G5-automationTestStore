@@ -17,7 +17,7 @@ it('Place order HW', () => {
   cy.get('input#filter_keyword').type('i{enter}');
 
   cy.log('**Find special element be its name**')
-  findProductByName('Body Cream by Bulgari');
+  findProductByName('Body Cream by Bulgari'); 
 
   cy.log('**Check that the found element has correct name')
   cy.get('.productname span').should('have.text', 'Body Cream by Bulgari')
