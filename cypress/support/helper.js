@@ -11,20 +11,16 @@ export function loginViaUI(user) {
 
 
 export function findProductByName(productName) {
-    cy.get('.prdocutname').then(($elements) => {
-      const element = $elements.toArray().find(($element) => {
-        const attrValue = $element.getAttribute('title');
-        return attrValue === productName;
-      });
-  
-      if (element) {
-        cy.wrap(element).click();
+  cy.get('body').then(body => {
+      if (body.find(`.prdocutname[title="${productName}"]`).length > 0) {
+          cy.get(`.prdocutname[title="${productName}"]`).click();
       } else {
-        cy.contains('a', '>').click();
-        findProductByName(productName);
+          cy.contains('.pagination a', '>').click();
+          findProductByName(productName);
       }
-    });
-  }
+})
+
+}
   
 
   
