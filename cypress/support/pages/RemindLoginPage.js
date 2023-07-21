@@ -20,10 +20,10 @@ class RemindLoginPage extends BasePage {
         return cy.get('.form-group [type="submit"]');
     }
 
-    fillInRemindLoginForm(user) {
+    fillInRemindLoginForm(lastName, email) {
         cy.log('**Submit remind a login...**');
-        this.getReminderLastNameField().type(user.lastName);
-        this.getReminderEmailField().type(user.email);
+        this.getReminderLastNameField().type(lastName);
+        this.getReminderEmailField().type(email);
 
         cy.log('**Submit remind login...**');
         this.getSubmitReminderButton().click();

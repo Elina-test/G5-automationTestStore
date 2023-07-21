@@ -17,10 +17,10 @@ class LoginPage extends BasePage {
         return cy.get('#loginFrm button');
     }
  
-    fillInLoginForm(user) {
+    fillInLoginForm(loginName, password) {
         cy.log('**Fill in Login form ...**');
-        this.getUserNameField().type(user.loginName);
-        this.getUserPasswordField().type(user.password);
+        this.getUserNameField().type(loginName);
+        this.getUserPasswordField().type(password);
 
         console.log('**Submit login...**');
         this.getLoginButton().click();

@@ -20,10 +20,10 @@ class ResetPasswordPage extends BasePage {
         return cy.get('.form-group [type="submit"]');
     }
 
-    fillInResetPasswordForm(user) {
+    fillInResetPasswordForm(loginName, email) {
         cy.log('**Submit resetting a password...**');
-        this.getResetLogNameField().type(user.loginName);
-        this.getResetEmailField().type(user.email);
+        this.getResetLogNameField().type(loginName);
+        this.getResetEmailField().type(email);
 
         cy.log('**Submit reset password...**');
         this.getSubmitResetButton().click();
