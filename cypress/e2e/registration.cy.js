@@ -5,6 +5,7 @@ import homePage from '../support/pages/HomePage';
 import accountLoginPage from '../support/pages/AccountLoginPage';
 import accountCreatePage from '../support/pages/AccountCreatePage';
 import accountSuccessPage from '../support/pages/AccountSuccessPage';
+import userAccountPage from '../support/pages/UserAccountPage';
 
 user.address = faker.location.streetAddress();
 user.city = faker.location.city();
@@ -33,25 +34,21 @@ it('Successful registration', () => {
 })
 
 it('Login user after registration', () => {
-  cy.visit('/');
+  homePage.visit();
+    cy.log('**Opening login form ...**')
+    homePage.getLoginOrRegisterButton().click();
 
-  cy.log('**Opening login form ...**');
-  cy.get('#customer_menu_top').click();
+    loginPage.fillInLoginForm(user);
 
-  cy.log('**Submit login form ...**');
-  cy.get('#loginFrm_loginname').type(user.loginName);
-  cy.get('#loginFrm_password').type(user.password);
-  cy.get('#loginFrm button').click();
-
-  cy.log('**Verifying "My account" page ...**');
-  cy.get('.heading1 .subtext').should('have.text', user.firstName);
+    cy.log('**Verifying "My account" page ...**');
+    userAccountPage.should('have.text', user.firstName);
 })
 
-it('Login user after registration (using helper function)', () => {
+/*it('Login user after registration (using helper function)', () => {
   loginViaUI(user);
   cy.log('**Verifying "My account" page ...**');
   cy.get('.heading1 .subtext').should('have.text', user.firstName);
-})
+})*/
 
 it('Unsuccessful registration attempt without email', () => {
   let userWithoutEmail = JSON.parse(JSON.stringify(user));

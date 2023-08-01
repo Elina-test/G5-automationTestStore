@@ -1,4 +1,6 @@
 import { title } from "process";
+import productPage from '../support/pages/ProductPage';
+import productCartPage from '../support/pages/ProductCartPage';
 
 export function loginViaUI(user) {
     cy.visit('/index.php?rt=account/login');
@@ -22,25 +24,24 @@ export function findProductByName(productName) {
 
 }
   
-
-  
 export function checkTotalPrice(){
-    cy.get('.productfilneprice').invoke('text').then(price => {
-        const originalValue = parseFloat(price.replace(/[$, ]/g, ""));
-        cy.get('#product_quantity').clear().type('2');
-        cy.get('.total-price').invoke('click');
-        cy.get('.total-price').invoke('text').should((price2) => {
-          const newValue = parseFloat(price2.replace(/[$,]/g, ""));
-          expect(newValue).to.eq(originalValue * '2');
-        });
-      });}
+      productPage.getFinalPrice().invoke('text').then(price => {
+          const originalValue = parseFloat(price.replace(/[$, ]/g, ""));
+          productPage.getProductQuantity().clear().type('2');
+          productPage.getTotalPrice().invoke('click');
+          productPage.getTotalPrice().invoke('text').should((price2) => {
+            const newValue = parseFloat(price2.replace(/[$,]/g, ""));
+            expect(newValue).to.eq(originalValue * '2');
+          });
+        });}
+
 
 export function checkTotalCartPrice(){
-    cy.contains('#totals_table td', 'Sub-Total:').siblings().invoke('text').then(value => {
+  productCartPage.getSubtotalPrice().siblings().invoke('text').then(value => {
         const subTotalValue = parseFloat(value.replace(/[$, ]/g, ""));
-        cy.contains('#totals_table td', 'Flat Shipping Rate:').siblings().invoke('text').then(value2 => {
+        productCartPage.getShippingPrice().siblings().invoke('text').then(value2 => {
             const shippingValue = parseFloat(value2.replace(/[$, ]/g, ""));
-            cy.get('#totals_table td span.bold.totalamout').eq(1).invoke('text').should(value3 => {
+            productCartPage.getCartTotalPrice().eq(1).invoke('text').should(value3 => {
                 const totalValue = parseFloat(value3.replace(/[$, ]/g, ""));
                 expect(totalValue).to.equal(subTotalValue + shippingValue);
               });
